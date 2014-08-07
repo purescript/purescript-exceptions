@@ -4,7 +4,22 @@ import Control.Monad.Eff
 
 foreign import data Exception :: !
 
-type Error = { message :: String, stack :: String }
+foreign import data Error :: *
+			    
+foreign import message 
+  "function message(e) {\
+  \  return e.message;\
+  \}" :: Error -> String
+  
+foreign import stackTrace
+  "function stack(e) {\
+  \  return e.stack;\
+  \}" :: Error -> String
+
+foreign import error
+  "function error(msg) {\
+  \  return new Error(msg);\
+  \}" :: String -> Error
 
 foreign import throwException 
   "function throwException(e) {\
