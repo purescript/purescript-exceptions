@@ -4,11 +4,24 @@
 
 ### Types
 
-    data Exception :: * -> !
+    data Error :: *
+
+    data Exception :: !
+
+
+### Type Class Instances
+
+    instance showError :: Show Error
 
 
 ### Values
 
-    catchException :: forall e r a. (e -> Eff r a) -> Eff (err :: Exception e | r) a -> Eff r a
+    catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
 
-    throwException :: forall a e r. e -> Eff (err :: Exception e | r) a
+    error :: String -> Error
+
+    message :: Error -> String
+
+    showErrorImpl :: Error -> String
+
+    throwException :: forall a eff. Error -> Eff (err :: Exception | eff) a
