@@ -5,22 +5,25 @@ import Control.Monad.Eff
 foreign import data Exception :: !
 
 foreign import data Error :: *
-			    
-foreign import message 
-  "function message(e) {\
-  \  return e.message;\
-  \}" :: Error -> String
-  
-foreign import stackTrace
-  "function stack(e) {\
-  \  return e.stack;\
+
+instance showError :: Show Error where
+  show = showErrorImpl
+
+foreign import showErrorImpl
+  "function showErrorImpl(err) {\
+  \  return err.stack ? err.stack : err.toString();\
   \}" :: Error -> String
 
 foreign import error
   "function error(msg) {\
   \  return new Error(msg);\
-  \}" :: String -> Error
+  \};" :: String -> Error
 
+foreign import message 
+  "function message(e) {\
+  \  return e.message;\
+  \}" :: Error -> String
+  
 foreign import throwException 
   "function throwException(e) {\
   \  return function() {\
