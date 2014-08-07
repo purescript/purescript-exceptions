@@ -4,11 +4,13 @@
 
 ### Types
 
-    data Exception :: * -> !
+    type Error  = { stack :: String, message :: String }
+
+    data Exception :: !
 
 
 ### Values
 
-    catchException :: forall e r a. (e -> Eff r a) -> Eff (err :: Exception e | r) a -> Eff r a
+    catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
 
-    throwException :: forall a e r. e -> Eff (err :: Exception e | r) a
+    throwException :: forall a eff. Error -> Eff (err :: Exception | eff) a

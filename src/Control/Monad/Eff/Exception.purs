@@ -2,14 +2,16 @@ module Control.Monad.Eff.Exception where
 
 import Control.Monad.Eff
 
-foreign import data Exception :: * -> !
+foreign import data Exception :: !
+
+type Error = { message :: String, stack :: String }
 
 foreign import throwException 
   "function throwException(e) {\
   \  return function() {\
   \    throw e;\
   \  };\
-  \}" :: forall a e r. e -> Eff (err :: Exception e | r) a
+  \}" :: forall a eff. Error -> Eff (err :: Exception | eff) a
 
 foreign import catchException 
   "function catchException(c) {\
@@ -18,8 +20,12 @@ foreign import catchException
   \      try {\
   \        return t();\
   \      } catch(e) {\
-  \        return c(e)();\
+  \        if (e instanceof Error) {\
+  \          return c(e)();\
+  \        } else {\
+  \          throw e;\
+  \        }\
   \      }\
   \    };\
   \  };\
-  \}" :: forall e r a. (e -> Eff r a) -> Eff (err :: Exception e | r) a -> Eff r a
+  \}" :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
