@@ -27,7 +27,7 @@ foreign import message
 foreign import throwException 
   "function throwException(e) {\
   \  return function() {\
-  \    throw e;\
+  \    throw new Error(e);\
   \  };\
   \}" :: forall a eff. Error -> Eff (err :: Exception | eff) a
 
