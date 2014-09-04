@@ -19,29 +19,29 @@ foreign import error
   \  return new Error(msg);\
   \};" :: String -> Error
 
-foreign import message 
+foreign import message
   "function message(e) {\
   \  return e.message;\
   \}" :: Error -> String
-  
-foreign import throwException 
+
+foreign import throwException
   "function throwException(e) {\
   \  return function() {\
   \    throw e;\
   \  };\
   \}" :: forall a eff. Error -> Eff (err :: Exception | eff) a
 
-foreign import catchException 
+foreign import catchException
   "function catchException(c) {\
   \  return function(t) {\
   \    return function() {\
   \      try {\
   \        return t();\
   \      } catch(e) {\
-  \        if (e instanceof Error) {\
+  \        if (e instanceof Error || {}.toString.call(e) === '[object Error]') {\
   \          return c(e)();\
   \        } else {\
-  \          throw e;\
+  \          return c(new Error(e.toString()))();\
   \        }\
   \      }\
   \    };\
