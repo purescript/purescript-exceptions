@@ -10,40 +10,50 @@ instance showError :: Show Error where
   show = showErrorImpl
 
 foreign import showErrorImpl
-  "function showErrorImpl(err) {\
-  \  return err.stack ? err.stack : err.toString();\
-  \}" :: Error -> String
+  """
+  function showErrorImpl(err) {
+    return err.stack || err.toString();
+  }
+  """ :: Error -> String
 
 foreign import error
-  "function error(msg) {\
-  \  return new Error(msg);\
-  \};" :: String -> Error
+  """
+  function error(msg) {
+    return new Error(msg);
+  }
+  """ :: String -> Error
 
 foreign import message
-  "function message(e) {\
-  \  return e.message;\
-  \}" :: Error -> String
+  """
+  function message(e) {
+    return e.message;
+  }
+  """ :: Error -> String
 
 foreign import throwException
-  "function throwException(e) {\
-  \  return function() {\
-  \    throw e;\
-  \  };\
-  \}" :: forall a eff. Error -> Eff (err :: Exception | eff) a
+  """
+  function throwException(e) {
+    return function() {
+      throw e;
+    };
+  }
+  """ :: forall a eff. Error -> Eff (err :: Exception | eff) a
 
 foreign import catchException
-  "function catchException(c) {\
-  \  return function(t) {\
-  \    return function() {\
-  \      try {\
-  \        return t();\
-  \      } catch(e) {\
-  \        if (e instanceof Error || {}.toString.call(e) === '[object Error]') {\
-  \          return c(e)();\
-  \        } else {\
-  \          return c(new Error(e.toString()))();\
-  \        }\
-  \      }\
-  \    };\
-  \  };\
-  \}" :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
+  """
+  function catchException(c) {
+    return function(t) {
+      return function() {
+        try {
+          return t();
+        } catch(e) {
+          if (e instanceof Error || Object.prototype.toString.call(e) === '[object Error]') {
+            return c(e)();
+          } else {
+            return c(new Error(e.toString()))();
+          }
+        }
+      };
+    };
+  }
+  """ :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
