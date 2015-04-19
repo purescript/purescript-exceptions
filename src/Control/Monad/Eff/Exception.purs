@@ -1,8 +1,8 @@
 -- | This module defines an effect, actions and handlers for working
 -- | with Javascript exceptions.
 
-module Control.Monad.Eff.Exception 
-  ( Exception()
+module Control.Monad.Eff.Exception
+  ( EXCEPTION()
   , Error()
   , error
   , message
@@ -10,10 +10,10 @@ module Control.Monad.Eff.Exception
   , catchException
   ) where
 
-import Control.Monad.Eff
+import Control.Monad.Eff (Eff())
 
 -- | This effect is used to annotate code which possibly throws exceptions
-foreign import data Exception :: !
+foreign import data EXCEPTION :: !
 
 -- | The type of Javascript errors
 foreign import data Error :: *
@@ -51,7 +51,7 @@ foreign import message
 -- | ```purescript
 -- | main = do
 -- |   x <- readNumber
--- |   when (x < 0) $ throwException $ 
+-- |   when (x < 0) $ throwException $
 -- |     error "Expected a non-negative number"
 -- | ```
 foreign import throwException
@@ -61,11 +61,11 @@ foreign import throwException
       throw e;
     };
   }
-  """ :: forall a eff. Error -> Eff (err :: Exception | eff) a
+  """ :: forall a eff. Error -> Eff (err :: EXCEPTION | eff) a
 
 -- | Catch an exception by providing an exception handler.
 -- |
--- | This handler removes the `Exception` effect.
+-- | This handler removes the `EXCEPTION` effect.
 -- |
 -- | For example:
 -- |
@@ -90,4 +90,4 @@ foreign import catchException
       };
     };
   }
-  """ :: forall a eff. (Error -> Eff eff a) -> Eff (err :: Exception | eff) a -> Eff eff a
+  """ :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
