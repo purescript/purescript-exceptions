@@ -10,6 +10,7 @@ module Control.Monad.Eff.Exception
   , catchException
   ) where
 
+import Prelude
 import Control.Monad.Eff (Eff())
 
 -- | This effect is used to annotate code which possibly throws exceptions
@@ -21,28 +22,13 @@ foreign import data Error :: *
 instance showError :: Show Error where
   show = showErrorImpl
 
-foreign import showErrorImpl
-  """
-  function showErrorImpl(err) {
-    return err.stack || err.toString();
-  }
-  """ :: Error -> String
+foreign import showErrorImpl :: Error -> String
 
 -- | Create a Javascript error, specifying a message
-foreign import error
-  """
-  function error(msg) {
-    return new Error(msg);
-  }
-  """ :: String -> Error
+foreign import error :: String -> Error
 
 -- | Get the error message from a Javascript error
-foreign import message
-  """
-  function message(e) {
-    return e.message;
-  }
-  """ :: Error -> String
+foreign import message :: Error -> String
 
 -- | Throw an exception
 -- |
@@ -54,14 +40,7 @@ foreign import message
 -- |   when (x < 0) $ throwException $
 -- |     error "Expected a non-negative number"
 -- | ```
-foreign import throwException
-  """
-  function throwException(e) {
-    return function() {
-      throw e;
-    };
-  }
-  """ :: forall a eff. Error -> Eff (err :: EXCEPTION | eff) a
+foreign import throwException :: forall a eff. Error -> Eff (err :: EXCEPTION | eff) a
 
 -- | Catch an exception by providing an exception handler.
 -- |
@@ -73,21 +52,4 @@ foreign import throwException
 -- | main = catchException print do
 -- |   trace "Exceptions thrown in this block will be logged to the console"
 -- | ```
-foreign import catchException
-  """
-  function catchException(c) {
-    return function(t) {
-      return function() {
-        try {
-          return t();
-        } catch(e) {
-          if (e instanceof Error || Object.prototype.toString.call(e) === '[object Error]') {
-            return c(e)();
-          } else {
-            return c(new Error(e.toString()))();
-          }
-        }
-      };
-    };
-  }
-  """ :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
+foreign import catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
