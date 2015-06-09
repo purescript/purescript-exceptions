@@ -1,7 +1,4 @@
-# Module Documentation
-
 ## Module Control.Monad.Eff.Exception
-
 
 This module defines an effect, actions and handlers for working
 with Javascript exceptions.
@@ -22,12 +19,10 @@ data Error :: *
 
 The type of Javascript errors
 
-#### `showError`
-
+##### Instances
 ``` purescript
 instance showError :: Show Error
 ```
-
 
 #### `error`
 
@@ -78,6 +73,5 @@ For example:
 main = catchException print do
   trace "Exceptions thrown in this block will be logged to the console"
 ```
-
 
 
