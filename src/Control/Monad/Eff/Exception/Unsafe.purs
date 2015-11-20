@@ -1,7 +1,6 @@
 module Control.Monad.Eff.Exception.Unsafe where
 
 import Prelude
-import Control.Monad.Eff
 import Control.Monad.Eff.Unsafe
 import Control.Monad.Eff.Exception
 
