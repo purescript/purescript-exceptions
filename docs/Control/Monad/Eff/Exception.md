@@ -21,7 +21,7 @@ The type of Javascript errors
 
 ##### Instances
 ``` purescript
-instance showError :: Show Error
+Show Error
 ```
 
 #### `error`
@@ -73,5 +73,14 @@ For example:
 main = catchException print do
   trace "Exceptions thrown in this block will be logged to the console"
 ```
+
+#### `throw`
+
+``` purescript
+throw :: forall eff a. String -> Eff (err :: EXCEPTION | eff) a
+```
+
+A shortcut allowing you to throw an error in one step. Defined as
+`throwException <<< error`.
 
 
