@@ -8,6 +8,7 @@ module Control.Monad.Eff.Exception
   , message
   , throwException
   , catchException
+  , throw
   ) where
 
 import Prelude
@@ -53,3 +54,8 @@ foreign import throwException :: forall a eff. Error -> Eff (err :: EXCEPTION | 
 -- |   trace "Exceptions thrown in this block will be logged to the console"
 -- | ```
 foreign import catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
+
+-- | A shortcut allowing you to throw an error in one step. Defined as
+-- | `throwException <<< error`.
+throw :: forall eff a. String -> Eff (err :: EXCEPTION | eff) a
+throw = throwException <<< error
