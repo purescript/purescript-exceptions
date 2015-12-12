@@ -1,7 +1,7 @@
 ## Module Control.Monad.Eff.Exception
 
 This module defines an effect, actions and handlers for working
-with Javascript exceptions.
+with JavaScript exceptions.
 
 #### `EXCEPTION`
 
@@ -17,7 +17,7 @@ This effect is used to annotate code which possibly throws exceptions
 data Error :: *
 ```
 
-The type of Javascript errors
+The type of JavaScript errors
 
 ##### Instances
 ``` purescript
@@ -30,7 +30,7 @@ Show Error
 error :: String -> Error
 ```
 
-Create a Javascript error, specifying a message
+Create a JavaScript error, specifying a message
 
 #### `message`
 
@@ -38,7 +38,7 @@ Create a Javascript error, specifying a message
 message :: Error -> String
 ```
 
-Get the error message from a Javascript error
+Get the error message from a JavaScript error
 
 #### `throwException`
 

@@ -20,6 +20,7 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-eff": "^0.1.2"
+    "purescript-eff": "^0.1.2",
+    "purescript-maybe": "^0.3.5"
   }
 }
