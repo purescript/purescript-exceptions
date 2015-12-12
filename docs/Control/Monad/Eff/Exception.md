@@ -40,6 +40,14 @@ message :: Error -> String
 
 Get the error message from a JavaScript error
 
+#### `stack`
+
+``` purescript
+stack :: Error -> Maybe String
+```
+
+Get the stack trace from a JavaScript error
+
 #### `throwException`
 
 ``` purescript

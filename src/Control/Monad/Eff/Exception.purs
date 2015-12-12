@@ -6,6 +6,7 @@ module Control.Monad.Eff.Exception
   , Error()
   , error
   , message
+  , stack
   , throwException
   , catchException
   , throw
