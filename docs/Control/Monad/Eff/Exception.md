@@ -71,15 +71,21 @@ main = do
 catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
 ```
 
-Catch an exception by providing an exception handler.
+Catch an exception by providing an exception handler for the given effectful Monad.
 
-This handler removes the `EXCEPTION` effect.
+This handler also removes the `EXCEPTION` effect.
 
 For example:
 
 ```purescript
-main = catchException print do
-  trace "Exceptions thrown in this block will be logged to the console"
+nastyOp = catchException catcher thrower
+	where 
+		catcher e = do
+			log "catched the bugger!"
+			--return the message of the error for example
+			return $ message e
+		thrower = do
+			throw "Big bad bug"
 ```
 
 #### `throw`
