@@ -2,8 +2,8 @@
 -- | with JavaScript exceptions.
 
 module Control.Monad.Eff.Exception
-  ( EXCEPTION()
-  , Error()
+  ( EXCEPTION
+  , Error
   , error
   , message
   , stack
@@ -12,9 +12,11 @@ module Control.Monad.Eff.Exception
   , throw
   ) where
 
-import Prelude
+import Control.Monad.Eff (Eff)
+import Control.Semigroupoid ((<<<))
+
 import Data.Maybe (Maybe(..))
-import Control.Monad.Eff (Eff())
+import Data.Show (class Show)
 
 -- | This effect is used to annotate code which possibly throws exceptions
 foreign import data EXCEPTION :: !
@@ -37,7 +39,11 @@ foreign import message :: Error -> String
 stack :: Error -> Maybe String
 stack = stackImpl Just Nothing
 
-foreign import stackImpl :: (forall a. a -> Maybe a) -> (forall a. Maybe a) -> Error -> Maybe String
+foreign import stackImpl
+  :: (forall a. a -> Maybe a)
+  -> (forall a. Maybe a)
+  -> Error
+  -> Maybe String
 
 -- | Throw an exception
 -- |
@@ -49,7 +55,10 @@ foreign import stackImpl :: (forall a. a -> Maybe a) -> (forall a. Maybe a) -> E
 -- |   when (x < 0) $ throwException $
 -- |     error "Expected a non-negative number"
 -- | ```
-foreign import throwException :: forall a eff. Error -> Eff (err :: EXCEPTION | eff) a
+foreign import throwException
+  :: forall a eff
+   . Error
+  -> Eff (err :: EXCEPTION | eff) a
 
 -- | Catch an exception by providing an exception handler.
 -- |
@@ -61,7 +70,11 @@ foreign import throwException :: forall a eff. Error -> Eff (err :: EXCEPTION | 
 -- | main = catchException print do
 -- |   trace "Exceptions thrown in this block will be logged to the console"
 -- | ```
-foreign import catchException :: forall a eff. (Error -> Eff eff a) -> Eff (err :: EXCEPTION | eff) a -> Eff eff a
+foreign import catchException
+  :: forall a eff
+   . (Error -> Eff eff a)
+  -> Eff (err :: EXCEPTION | eff) a
+  -> Eff eff a
 
 -- | A shortcut allowing you to throw an error in one step. Defined as
 -- | `throwException <<< error`.

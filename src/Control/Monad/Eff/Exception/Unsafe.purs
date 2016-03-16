@@ -1,8 +1,8 @@
 module Control.Monad.Eff.Exception.Unsafe where
 
-import Prelude
-import Control.Monad.Eff.Unsafe
-import Control.Monad.Eff.Exception
+import Control.Monad.Eff.Exception (Error, error, throwException)
+import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Control.Semigroupoid ((<<<))
 
 -- | Throw an exception in pure code. This function should be used very
 -- | sparingly, as it can cause unexpected crashes at runtime.

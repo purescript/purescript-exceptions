@@ -12,6 +12,6 @@ Exception effects.
 bower install purescript-exceptions
 ```
 
-## Module documentation
+## Documentation
 
-- [Control.Monad.Eff.Exception](docs/Control/Monad/Eff/Exception.md)
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-exceptions).
