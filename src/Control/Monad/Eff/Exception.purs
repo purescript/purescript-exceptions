@@ -10,13 +10,15 @@ module Control.Monad.Eff.Exception
   , throwException
   , catchException
   , throw
+  , try
   ) where
 
 import Control.Monad.Eff (Eff)
 import Control.Semigroupoid ((<<<))
-
+import Data.Either (Either(Right, Left))
 import Data.Maybe (Maybe(..))
 import Data.Show (class Show)
+import Prelude ((<$>), pure)
 
 -- | This effect is used to annotate code which possibly throws exceptions
 foreign import data EXCEPTION :: !
@@ -80,3 +82,23 @@ foreign import catchException
 -- | `throwException <<< error`.
 throw :: forall eff a. String -> Eff (err :: EXCEPTION | eff) a
 throw = throwException <<< error
+
+-- | Runs an Eff and returns eventual Exceptions as a `Left` value. If the
+-- | computation succeeds the result gets wrapped in a `Right`.
+-- |
+-- | For example:
+-- |
+-- | ```purescript
+-- | -- Notice that there is no EXCEPTION effect
+-- | main :: forall eff. Eff (console :: CONSOLE, fs :: FS | eff) Unit
+-- | main = do
+-- |   result <- try (readTextFile UTF8 "README.md")
+-- |   case result of
+-- |     Right lines ->
+-- |       Console.log ("README: \n" <> lines )
+-- |     Left error ->
+-- |       Console.error ("Couldn't open README.md. Error was: " <> show error)
+-- | ```
+
+try :: forall eff a. Eff (err :: EXCEPTION | eff) a -> Eff eff (Either Error a)
+try action = catchException (pure <<< Left) (Right <$> action)

@@ -18,6 +18,8 @@
   ],
   "dependencies": {
     "purescript-eff": "^1.0.0-rc.1",
-    "purescript-maybe": "^1.0.0-rc.1"
+    "purescript-maybe": "^1.0.0-rc.1",
+    "purescript-either": "^1.0.0-rc.1",
+    "purescript-prelude": "^1.0.0-rc.1"
   }
 }
