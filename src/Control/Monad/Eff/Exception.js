@@ -1,7 +1,4 @@
-/* global exports */
 "use strict";
-
-// module Control.Monad.Eff.Exception
 
 exports.showErrorImpl = function (err) {
   return err.stack || err.toString();

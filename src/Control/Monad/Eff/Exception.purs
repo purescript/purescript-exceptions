@@ -13,12 +13,12 @@ module Control.Monad.Eff.Exception
   , try
   ) where
 
+import Prelude
+
 import Control.Monad.Eff (Eff)
-import Control.Semigroupoid ((<<<))
-import Data.Either (Either(Right, Left))
+
+import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Data.Show (class Show)
-import Prelude ((<$>), pure)
 
 -- | This effect is used to annotate code which possibly throws exceptions
 foreign import data EXCEPTION :: !
@@ -70,7 +70,7 @@ foreign import throwException
 -- |
 -- | ```purescript
 -- | main = catchException print do
--- |   trace "Exceptions thrown in this block will be logged to the console"
+-- |   Console.log "Exceptions thrown in this block will be logged to the console"
 -- | ```
 foreign import catchException
   :: forall a eff
