@@ -15,16 +15,16 @@ module Control.Monad.Eff.Exception
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
+import Control.Monad.Eff (Eff, kind Effect)
 
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 
 -- | This effect is used to annotate code which possibly throws exceptions
-foreign import data EXCEPTION :: !
+foreign import data EXCEPTION :: Effect
 
 -- | The type of JavaScript errors
-foreign import data Error :: *
+foreign import data Error :: Type
 
 instance showError :: Show Error where
   show = showErrorImpl
