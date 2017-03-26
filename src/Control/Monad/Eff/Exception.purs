@@ -60,7 +60,7 @@ foreign import stackImpl
 foreign import throwException
   :: forall a eff
    . Error
-  -> Eff (err :: EXCEPTION | eff) a
+  -> Eff (exception :: EXCEPTION | eff) a
 
 -- | Catch an exception by providing an exception handler.
 -- |
@@ -75,12 +75,12 @@ foreign import throwException
 foreign import catchException
   :: forall a eff
    . (Error -> Eff eff a)
-  -> Eff (err :: EXCEPTION | eff) a
+  -> Eff (exception :: EXCEPTION | eff) a
   -> Eff eff a
 
 -- | A shortcut allowing you to throw an error in one step. Defined as
 -- | `throwException <<< error`.
-throw :: forall eff a. String -> Eff (err :: EXCEPTION | eff) a
+throw :: forall eff a. String -> Eff (exception :: EXCEPTION | eff) a
 throw = throwException <<< error
 
 -- | Runs an Eff and returns eventual Exceptions as a `Left` value. If the
@@ -100,5 +100,5 @@ throw = throwException <<< error
 -- |       Console.error ("Couldn't open README.md. Error was: " <> show error)
 -- | ```
 
-try :: forall eff a. Eff (err :: EXCEPTION | eff) a -> Eff eff (Either Error a)
+try :: forall eff a. Eff (exception :: EXCEPTION | eff) a -> Eff eff (Either Error a)
 try action = catchException (pure <<< Left) (Right <$> action)
