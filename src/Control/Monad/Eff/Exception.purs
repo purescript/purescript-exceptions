@@ -29,6 +29,9 @@ foreign import data Error :: Type
 instance showError :: Show Error where
   show = showErrorImpl
 
+instance discardError :: Discard Error where
+  discard = bind
+
 foreign import showErrorImpl :: Error -> String
 
 -- | Create a JavaScript error, specifying a message
