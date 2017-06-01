@@ -80,7 +80,7 @@ foreign import catchException
   -> Eff (exception :: EXCEPTION | eff) a
   -> Eff eff a
 
--- | Catch an exception and throw a new one.
+-- | If an exception is thrown, catch it and throw a new one.
 rethrowException :: forall eff. (Error -> Error) -> Eff (exception :: EXCEPTION | eff) ~> Eff (exception :: EXCEPTION | eff)
 rethrowException errFn =
   catchException (throwException <<< errFn) <<< unsafeCoerceEff
