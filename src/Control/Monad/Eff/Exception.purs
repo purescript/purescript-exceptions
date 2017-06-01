@@ -9,6 +9,7 @@ module Control.Monad.Eff.Exception
   , stack
   , throwException
   , catchException
+  , rethrowException
   , throw
   , try
   ) where
@@ -16,6 +17,7 @@ module Control.Monad.Eff.Exception
 import Prelude
 
 import Control.Monad.Eff (Eff, kind Effect)
+import Control.Monad.Eff.Unsafe (unsafeCoerceEff)
 
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
@@ -77,6 +79,11 @@ foreign import catchException
    . (Error -> Eff eff a)
   -> Eff (exception :: EXCEPTION | eff) a
   -> Eff eff a
+
+-- | Catch an exception and throw a new one.
+rethrowException :: forall a eff. (Error -> Error) -> Eff (exception :: EXCEPTION | eff) a -> Eff (exception :: EXCEPTION | eff) a
+rethrowException errFn =
+  catchException (throwException <<< errFn) <<< unsafeCoerceEff
 
 -- | A shortcut allowing you to throw an error in one step. Defined as
 -- | `throwException <<< error`.
