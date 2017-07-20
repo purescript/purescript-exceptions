@@ -6,6 +6,7 @@ module Control.Monad.Eff.Exception
   , Error
   , error
   , message
+  , name
   , stack
   , throwException
   , catchException
@@ -36,6 +37,9 @@ foreign import error :: String -> Error
 
 -- | Get the error message from a JavaScript error
 foreign import message :: Error -> String
+
+-- | Get the error name when defined, or fallback to 'Error'
+foreign import name :: Error -> String
 
 -- | Get the stack trace from a JavaScript error
 stack :: Error -> Maybe String
