@@ -12,6 +12,10 @@ exports.message = function (e) {
   return e.message;
 };
 
+exports.name = function (e) {
+  return e.name || "Error";
+};
+
 exports.stackImpl = function (just) {
   return function (nothing) {
     return function (e) {
