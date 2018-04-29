@@ -1,7 +1,7 @@
 -- | This module defines an effect, actions and handlers for working
 -- | with JavaScript exceptions.
 
-module Control.Monad.Effect.Exception
+module Effect.Exception
   ( Error
   , error
   , message
@@ -15,7 +15,7 @@ module Control.Monad.Effect.Exception
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
+import Effect (Effect)
 
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
