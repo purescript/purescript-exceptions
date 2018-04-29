@@ -1,7 +1,7 @@
-module Control.Monad.Effect.Exception.Unsafe where
+module Effect.Exception.Unsafe where
 
-import Control.Monad.Effect.Exception (Error, error, throwException)
-import Control.Monad.Effect.Unsafe (unsafePerformEffect)
+import Effect.Exception (Error, error, throwException)
+import Effect.Unsafe (unsafePerformEffect)
 import Control.Semigroupoid ((<<<))
 
 -- | Throw an exception in pure code. This function should be used very
