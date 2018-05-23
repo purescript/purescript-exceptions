@@ -1,8 +1,7 @@
 {
   "name": "purescript-exceptions",
   "homepage": "https://github.com/purescript/purescript-exceptions",
-  "description": "Exception effects",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/purescript/purescript-exceptions.git"
@@ -17,7 +16,9 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-either": "purescript/purescript-either#compiler/0.12",
-    "purescript-effect": "purescript/purescript-effect#compiler/0.12"
+    "purescript-effect": "^2.0.0",
+    "purescript-either": "^4.0.0",
+    "purescript-maybe": "^4.0.0",
+    "purescript-prelude": "^4.0.0"
   }
 }
