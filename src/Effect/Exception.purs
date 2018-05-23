@@ -1,9 +1,8 @@
 -- | This module defines an effect, actions and handlers for working
 -- | with JavaScript exceptions.
 
-module Control.Monad.Eff.Exception
-  ( EXCEPTION
-  , Error
+module Effect.Exception
+  ( Error
   , error
   , message
   , name
@@ -16,13 +15,10 @@ module Control.Monad.Eff.Exception
 
 import Prelude
 
-import Control.Monad.Eff (Eff, kind Effect)
+import Effect (Effect)
 
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-
--- | This effect is used to annotate code which possibly throws exceptions
-foreign import data EXCEPTION :: Effect
 
 -- | The type of JavaScript errors
 foreign import data Error :: Type
@@ -62,13 +58,11 @@ foreign import stackImpl
 -- |     error "Expected a non-negative number"
 -- | ```
 foreign import throwException
-  :: forall a eff
+  :: forall a
    . Error
-  -> Eff (exception :: EXCEPTION | eff) a
+  -> Effect a
 
 -- | Catch an exception by providing an exception handler.
--- |
--- | This handler removes the `EXCEPTION` effect.
 -- |
 -- | For example:
 -- |
@@ -77,14 +71,14 @@ foreign import throwException
 -- |   Console.log "Exceptions thrown in this block will be logged to the console"
 -- | ```
 foreign import catchException
-  :: forall a eff
-   . (Error -> Eff eff a)
-  -> Eff (exception :: EXCEPTION | eff) a
-  -> Eff eff a
+  :: forall a
+   . (Error -> Effect a)
+  -> Effect a
+  -> Effect a
 
 -- | A shortcut allowing you to throw an error in one step. Defined as
 -- | `throwException <<< error`.
-throw :: forall eff a. String -> Eff (exception :: EXCEPTION | eff) a
+throw :: forall a. String -> Effect a
 throw = throwException <<< error
 
 -- | Runs an Eff and returns eventual Exceptions as a `Left` value. If the
@@ -93,8 +87,7 @@ throw = throwException <<< error
 -- | For example:
 -- |
 -- | ```purescript
--- | -- Notice that there is no EXCEPTION effect
--- | main :: forall eff. Eff (console :: CONSOLE, fs :: FS | eff) Unit
+-- | main :: forall eff. Effect Unit
 -- | main = do
 -- |   result <- try (readTextFile UTF8 "README.md")
 -- |   case result of
@@ -104,5 +97,5 @@ throw = throwException <<< error
 -- |       Console.error ("Couldn't open README.md. Error was: " <> show error)
 -- | ```
 
-try :: forall eff a. Eff (exception :: EXCEPTION | eff) a -> Eff eff (Either Error a)
+try :: forall a. Effect a -> Effect (Either Error a)
 try action = catchException (pure <<< Left) (Right <$> action)

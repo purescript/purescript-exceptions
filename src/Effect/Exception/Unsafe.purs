@@ -1,13 +1,13 @@
-module Control.Monad.Eff.Exception.Unsafe where
+module Effect.Exception.Unsafe where
 
-import Control.Monad.Eff.Exception (Error, error, throwException)
-import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Effect.Exception (Error, error, throwException)
+import Effect.Unsafe (unsafePerformEffect)
 import Control.Semigroupoid ((<<<))
 
 -- | Throw an exception in pure code. This function should be used very
 -- | sparingly, as it can cause unexpected crashes at runtime.
 unsafeThrowException :: forall a. Error -> a
-unsafeThrowException = unsafePerformEff <<< throwException
+unsafeThrowException = unsafePerformEffect <<< throwException
 
 -- | Defined as `unsafeThrowException <<< error`.
 unsafeThrow :: forall a. String -> a
