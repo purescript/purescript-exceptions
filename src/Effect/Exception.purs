@@ -67,7 +67,7 @@ foreign import throwException
 -- | For example:
 -- |
 -- | ```purescript
--- | main = catchException print do
+-- | main = catchException Console.logShow do
 -- |   Console.log "Exceptions thrown in this block will be logged to the console"
 -- | ```
 foreign import catchException
