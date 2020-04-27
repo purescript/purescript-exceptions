@@ -87,7 +87,7 @@ throw = throwException <<< error
 -- | For example:
 -- |
 -- | ```purescript
--- | main :: forall eff. Effect Unit
+-- | main :: Effect Unit
 -- | main = do
 -- |   result <- try (readTextFile UTF8 "README.md")
 -- |   case result of
