@@ -15,7 +15,7 @@ Bugfixes:
 Other improvements:
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#37)
 - Added a CHANGELOG.md file and pull request template (#38 #39)
-- Removed unnecessary type variable from docstring (#33)
+- Removed unnecessary type variable from `try` docstring (#33)
 
 ## [v4.0.0](https://github.com/purescript/purescript-exceptions/releases/tag/v4.0.0) - 2018-05-23
 
