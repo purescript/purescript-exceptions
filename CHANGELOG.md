@@ -5,7 +5,7 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
-- Updated dependencies for PureScript 0.14 (#36)
+- Added support for PureScript 0.14 and dropped support for all previous versions (#36)
 
 New features:
 
@@ -14,7 +14,7 @@ Bugfixes:
 
 Other improvements:
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#37)
-- Added a CHANGELOG.md file and pull request template (#38 #39)
+- Added a CHANGELOG.md file and pull request template (#38, #39)
 - Removed unnecessary type variable from `try` docstring (#33)
 
 ## [v4.0.0](https://github.com/purescript/purescript-exceptions/releases/tag/v4.0.0) - 2018-05-23
