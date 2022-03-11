@@ -1,36 +1,36 @@
 "use strict";
 
-exports.showErrorImpl = function (err) {
+export function showErrorImpl(err) {
   return err.stack || err.toString();
-};
+}
 
-exports.error = function (msg) {
+export function error(msg) {
   return new Error(msg);
-};
+}
 
-exports.message = function (e) {
+export function message(e) {
   return e.message;
-};
+}
 
-exports.name = function (e) {
+export function name(e) {
   return e.name || "Error";
-};
+}
 
-exports.stackImpl = function (just) {
+export function stackImpl(just) {
   return function (nothing) {
     return function (e) {
       return e.stack ? just(e.stack) : nothing;
     };
   };
-};
+}
 
-exports.throwException = function (e) {
+export function throwException(e) {
   return function () {
     throw e;
   };
-};
+}
 
-exports.catchException = function (c) {
+export function catchException(c) {
   return function (t) {
     return function () {
       try {
@@ -44,4 +44,4 @@ exports.catchException = function (c) {
       }
     };
   };
-};
+}
