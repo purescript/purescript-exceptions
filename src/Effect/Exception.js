@@ -1,5 +1,3 @@
-"use strict";
-
 export function showErrorImpl(err) {
   return err.stack || err.toString();
 }
