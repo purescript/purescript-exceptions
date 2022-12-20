@@ -3,15 +3,17 @@
 
 module Effect.Exception
   ( Error
+  , catchException
   , error
+  , errorWithCause
   , message
   , name
   , stack
-  , throwException
-  , catchException
   , throw
+  , throwException
   , try
-  ) where
+  )
+  where
 
 import Prelude
 
@@ -30,6 +32,9 @@ foreign import showErrorImpl :: Error -> String
 
 -- | Create a JavaScript error, specifying a message
 foreign import error :: String -> Error
+
+-- | Create a JavaScript error, specifying a message and a cause
+foreign import errorWithCause :: String -> Error -> Error
 
 -- | Get the error message from a JavaScript error
 foreign import message :: Error -> String
