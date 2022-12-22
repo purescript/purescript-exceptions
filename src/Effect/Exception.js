@@ -9,7 +9,7 @@ export function error(msg) {
 export function errorWithCause(msg) {
   return function(cause) {
     return new Error(msg, { cause });
-  }
+  };
 }
 
 export function message(e) {
