@@ -6,6 +6,12 @@ export function error(msg) {
   return new Error(msg);
 }
 
+export function errorWithCause(msg) {
+  return function(cause) {
+    return new Error(msg, { cause });
+  };
+}
+
 export function message(e) {
   return e.message;
 }
