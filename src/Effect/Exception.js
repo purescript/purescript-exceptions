@@ -12,6 +12,14 @@ export function errorWithCause(msg) {
   };
 }
 
+export function errorWithName(msg) {
+  return function(name) {
+    const e = new Error(msg);
+    e.name = name;
+    return e;
+  };
+}
+
 export function message(e) {
   return e.message;
 }
