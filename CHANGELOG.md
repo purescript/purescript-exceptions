@@ -8,6 +8,7 @@ Breaking changes:
 
 New features:
 - Add `errorWithCause` (#43 by @sigma-andex)
+- Add `errorWithName` (#44 by @jedimahdi)
 
 Bugfixes:
 

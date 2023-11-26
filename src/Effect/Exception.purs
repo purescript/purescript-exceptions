@@ -6,6 +6,7 @@ module Effect.Exception
   , catchException
   , error
   , errorWithCause
+  , errorWithName
   , message
   , name
   , stack
@@ -35,6 +36,9 @@ foreign import error :: String -> Error
 
 -- | Create a JavaScript error, specifying a message and a cause
 foreign import errorWithCause :: String -> Error -> Error
+
+-- | Create a JavaScript error, specifying a message and a name
+foreign import errorWithName :: String -> String -> Error
 
 -- | Get the error message from a JavaScript error
 foreign import message :: Error -> String
