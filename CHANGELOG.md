@@ -7,12 +7,16 @@ Notable changes to this project are documented in this file. The format is based
 Breaking changes:
 
 New features:
-- Add `errorWithCause` (#43 by @sigma-andex)
-- Add `errorWithName` (#44 by @jedimahdi)
 
 Bugfixes:
 
 Other improvements:
+
+## [v6.1.0](https://github.com/purescript/purescript-exceptions/releases/tag/v6.1.0) - 2024-06-30
+
+New features:
+- Add `errorWithCause` (#43 by @sigma-andex)
+- Add `errorWithName` (#44 by @jedimahdi)
 
 ## [v6.0.0](https://github.com/purescript/purescript-exceptions/releases/tag/v6.0.0) - 2022-04-27
 
