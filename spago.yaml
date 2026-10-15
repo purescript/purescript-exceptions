@@ -1,5 +1,6 @@
 package:
   name: exceptions
+  description: Effectful exception handling
   build:
     strict: true
     pedanticPackages: true
