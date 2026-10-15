@@ -12,7 +12,7 @@ Bugfixes:
 
 Other improvements:
 
-- Migrate from Bower/Pulp to Spago and update CI, linting, and formatting.
+- Migrate from Bower/Pulp to Spago and update CI, linting, and formatting. (#45 by @thomashoneyman)
 
 ## [v6.1.0](https://github.com/purescript/purescript-exceptions/releases/tag/v6.1.0) - 2024-06-30
 
