@@ -13,15 +13,13 @@ module Effect.Exception
   , throw
   , throwException
   , try
-  )
-  where
+  ) where
 
 import Prelude
 
-import Effect (Effect)
-
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
+import Effect (Effect)
 
 -- | The type of JavaScript errors
 foreign import data Error :: Type

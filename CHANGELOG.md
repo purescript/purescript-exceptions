@@ -17,12 +17,14 @@ Other improvements:
 ## [v6.1.0](https://github.com/purescript/purescript-exceptions/releases/tag/v6.1.0) - 2024-06-30
 
 New features:
+
 - Add `errorWithCause` (#43 by @sigma-andex)
 - Add `errorWithName` (#44 by @jedimahdi)
 
 ## [v6.0.0](https://github.com/purescript/purescript-exceptions/releases/tag/v6.0.0) - 2022-04-27
 
 Breaking changes:
+
 - Migrate FFI to ES modules (#41 by @JordanMartinez)
 
 New features:
@@ -34,14 +36,17 @@ Other improvements:
 ## [v5.0.0](https://github.com/purescript/purescript-exceptions/releases/tag/v5.0.0) - 2021-02-26
 
 Breaking changes:
+
 - Added support for PureScript 0.14 and dropped support for all previous versions (#36)
 
 New features:
 
 Bugfixes:
+
 - Fixed `catchException` example to use `Console.logShow` instead of `print` (#31)
 
 Other improvements:
+
 - Migrated CI to GitHub Actions and updated installation instructions to use Spago (#37)
 - Added a CHANGELOG.md file and pull request template (#38, #39)
 - Removed unnecessary type variable from `try` docstring (#33)
@@ -111,8 +116,4 @@ Handle errors from other JS domains (@joneshf)
 
 ## [v0.2.0](https://github.com/purescript/purescript-exceptions/releases/tag/v0.2.0) - 2014-08-07
 
-
-
 ## [v0.1.0](https://github.com/purescript/purescript-exceptions/releases/tag/v0.1.0) - 2014-04-25
-
-
