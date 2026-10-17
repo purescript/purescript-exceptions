@@ -7,13 +7,13 @@ export function error(msg) {
 }
 
 export function errorWithCause(msg) {
-  return function(cause) {
+  return function (cause) {
     return new Error(msg, { cause });
   };
 }
 
 export function errorWithName(msg) {
-  return function(name) {
+  return function (name) {
     const e = new Error(msg);
     e.name = name;
     return e;
